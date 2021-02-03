@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Update Profile{% endblock title %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+<h1>Profile</h1>
+<div class="row mb-3">
+    <section id="profile-links col-12">
+        <a href="{% url 'account_profile' %}"
+            class="btn btn-sm btn-outline-dark {% if 'profile' in request.path %} active {% endif %}">Update
+            Personal
+            Details</a>
+        <a href="{% url 'account_email' %}"
+            class="btn btn-sm btn-outline-dark {% if 'email' in request.path %} active {% endif %}">Change Email</a>
+        <a href="{% url 'account_set_password' %}"
+            class="btn btn-sm btn-outline-dark {% if 'password' in request.path %} active {% endif %}">Change
+            Password</a>
+    </section>
+</div>
+{% block profile_content %}
+{% endblock profile_content %}
+
+{% block extra_body %}
+{% endblock extra_body %}
+</div>
+</div>
+</div>
+</div>
+{% endblock content %}

@@ -1,0 +1,282 @@
+
+{% load static %}
+{% load humanize %}
+{% load myproduct_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Agogo-Company | Acceuil</title>
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+    />
+    <link rel="stylesheet" href="{% static 'gogo/css/mdb.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'gogo/css/style.css' %}" />
+  </head>
+
+  <body>
+    <header>
+      <div class="p-5 bg-image hero" style="background-image: url('{% static 'gogo/img/j.jpg' %}');">
+      <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <div class="container-fluid">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarExample01"
+            aria-controls="navbarExample01"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarExample01">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" aria-current="page" href="#">Acceuil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#services">Nos services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#products">produits</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#testimonials">temoignages</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">a propos</a>
+              </li>
+            </ul>
+            <div class="ml-auto">
+              <a class="btn btn-md btn__btn" 
+              style="background-color: #55acee; color: white;" href="" 
+              role="button">
+              Se Connecter
+              </a>
+            </div>
+          </div>
+          </div>
+      </nav>
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)">
+          <div class="h-100 hero__text">
+            <div class="text-white">
+              <h1 class="mb-1 hero__first">Agogo Company</h1>
+              <div class="mb-3">
+               <div class="cot"></div>
+                <span class="slog">Creating to inspire</span> 
+                <div class="cot"></div>
+              </div>
+              <a class="btn btn__btn btn-lg" href="#services" 
+              role="button">
+              Nos services
+              <i class="fas fa-arrow-down btn__icon"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    {% include 'partials/_alerts.html' %}
+<section class="mt-4 mb-4">
+    <div class="container text-center align-items-center mb-4">
+      <h2 class="section__title" id="services">
+        Nos services
+      </h2>
+      <div class="bottom__bar"></div>
+    </div>
+
+    <div class="container mb-4">
+      <div class="row">
+
+        {% for product in most_popular %}
+      <!--duplicate now-->
+      <div class="card col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+          <img
+            src="{{ product.image.url }}"
+            class="img-fluid"
+          />
+          <a href="{{ product.get_absolute_url }}">
+            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+          </a>
+        </div>
+        <div class="card-body">
+          <!-- <h5 class="card-title">{{ product.title }}</h5> -->
+        <div class="product-body">
+            <h5 class="product-title">{{ product.title }}</h5>
+        </div>
+        <p class="card-text">
+           {{product.description}}
+          </p>
+          <a href="{{ product.get_absolute_url }}" class="btn btn__btn justify-content-end">Commander</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="mt-4 mb-4" id="products">
+    <div class="container text-center align-items-center mb-4">
+      <h2 class="section__title" id="product">
+        Nos produits
+      </h2>
+      <div class="bottom__bar"></div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+
+        {% for product in new_products %}
+      <!--duplicate now-->
+      <div class="card col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+          <img
+            src="{{ product.image.url }}"
+            class="img-fluid"
+          />
+          <a href="{{ product.get_absolute_url }}">
+            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+          </a>
+        </div>
+        <div class="card-body">
+          <!-- <h5 class="card-title">{{ product.title }}</h5> -->
+          <div class="product-rating">
+              {% autoescape off %}
+              {{ product.rating|star_generator }}
+              {% endautoescape %}
+          </div>
+        <div class="product-body">
+            <h5 class="product-title">{{ product.title }}</h5>
+            <h6 class="product-price">{{ product.price }}HTG</h6>
+        </div>
+        <!-- <div class="product-options">
+            <a href="{% url 'add_to_basket' product_id=product.id %}" data-toggle="tooltip"
+                data-placement="right" title="Add to Basket">
+                <i class="fas fa-cart-plus"></i>
+            </a>
+            <a href="{{ product.get_absolute_url }}" data-toggle="tooltip" data-placement="right"
+                title="View Product">
+                <i class="fas fa-eye"></i>
+            </a>
+        </div> -->
+          <!-- <a href="#!" class="btn btn__btn justify-content-end">Button</a> -->
+        </div>
+      </div>
+      {% endfor %}
+
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-4 mt-4 section__counter">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-4 text-center">
+          <span class="counter">234</span>
+          <br />
+          <span class="counter__text">
+            client satisfait
+          </span>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-4 text-center">
+          <span class="counter">234</span>
+          <br />
+          <span class="counter__text">
+            client satisfait
+          </span>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-4 text-center">
+          <span class="counter">234</span>
+          <br />
+          <span class="counter__text">
+            client satisfait
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <section class="mt-4 mb-4" id="testimonials">
+      <div class="container text-center align-items-center">
+        <h2 class="section__title" id="product">
+          Temoignages
+        </h2>
+        <div class="bottom__bar"></div>
+      </div>
+
+
+      <div class="container">
+        <div id="carouselExampleInterval" class="carousel slide" data-mdb-ride="carousel">
+          <div class="carousel-inner text-center p-5">
+            <div class="carousel-item active" data-mdb-interval="2000">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel inventore quam,
+               dolore in quo accusantium necessitatibus fugiat adipisci doloremque error,
+               consectetur eligendi aliquid? At neque harum commodi ipsam molestias repudiandae.
+               <span class="testimonial__author">
+                 John Doe
+               </span>
+            </div>
+            <div class="carousel-item" data-mdb-interval="2000">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel inventore quam,
+               dolore in quo accusantium necessitatibus fugiat adipisci doloremque error,
+               consectetur eligendi aliquid? At neque harum commodi ipsam molestias repudiandae.
+               <span class="testimonial__author">
+                 John Doe
+               </span>
+            </div>
+            <div class="carousel-item">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel inventore quam,
+               dolore in quo accusantium necessitatibus fugiat adipisci doloremque error,
+               consectetur eligendi aliquid? At neque harum commodi ipsam molestias repudiandae.
+               <span class="testimonial__author">
+                 John Doe
+               </span>
+            </div>
+          </div>
+          <a
+            class="carousel-control-prev"
+            href="#carouselExampleInterval"
+            role="button"
+            data-mdb-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#carouselExampleInterval"
+            role="button"
+            data-mdb-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </a>
+        </div>
+      </div>
+
+  </section>
+  {% include 'partials/_footer.html' %}
+</body>
+    <!-- /Footer -->
+    {% block footer %}{% endblock %}
+    <script type="text/javascript" src="{% static 'gogo/js/mdb.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+      $('.counter').counterUp({
+        delay: 10,
+        time: 1200
+      });
+    });
+    </script> 
+
+</html>
