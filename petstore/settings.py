@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 from django.contrib.messages import constants as messages
 
-SECRET_KEY = 'os.environ.get(STRIPE_TEST_SECRET_KEY'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'replace-me')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -187,5 +187,5 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
 
 #moncash keys
-MONCASH_CLIENT_ID = 'f6e62a0bd9faa11b5a528730eff5a433'
-MONCASH_SECRET_KEY = 'BUtONTNoLDzWmW8925aSEOm95JR6FV62mjpQLaODFs4Y-RBEIcKR9F3FSP5QEcI3'
+MONCASH_CLIENT_ID = os.environ.get('MONCASH_CLIENT_ID')
+MONCASH_SECRET_KEY = os.environ.get('MONCASH_SECRET_KEY')
